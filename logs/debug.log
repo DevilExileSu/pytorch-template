@@ -1,0 +1,14 @@
+2021-03-04 22:24:35,405 [DEBUG]: 
+Running with the following configs:
+	data_dir : dataset/
+	h_dim : 200
+	lr : 0.5
+	batch_size : 32
+	epoch : 100
+	save_dir : ./saved_models
+	id : 00
+	cuda : False
+	config_file : ./config.json
+
+
+2021-03-04 22:24:35,420 [DEBUG]: Config saved to file ./config.json

@@ -1,0 +1,11 @@
+{
+  "data_dir": "dataset/",
+  "h_dim": 200,
+  "lr": 0.5,
+  "batch_size": 32,
+  "epoch": 100,
+  "save_dir": "./saved_models",
+  "id": "00",
+  "cuda": false,
+  "config_file": "./config.json"
+}

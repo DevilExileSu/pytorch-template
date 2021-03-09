@@ -1,0 +1,89 @@
+import torch
+import numpy as np
+from config import Logger
+from abc import abstractmethod
+
+class Trainer(object):
+    def __init__(self, model, optimizer, criterion, cfg):
+        self.logger = Logger()
+        self.model = self.model
+        self.cfg = cfg
+        self.optimizer = optimizer
+        self.criterion = criterion
+        self.epochs = cfg['epochs']
+        self.start_epoch = 1 
+        self.save_epochs = cfg['save_epochs']
+        self.early_stop = cfg['early_stop']
+        self.patience = cfg['patience']
+        self.var_loss_min = np.Inf
+        self.save_dir = cfg['save_dir']
+        self.best_score = None
+        self.counter = 0 
+        
+
+    
+
+    @abstractmethod
+    def _train_epoch(self, epoch):
+        """
+        Training logic for an epoch
+
+        :param epoch: Current epoch number
+        """
+        raise NotImplementedError
+    
+    def train(self):
+        for epoch in range(self.start_epoch, self.epochs+1):
+            val_loss, metrics_score= self._trian_epoch(epoch)
+            score = -val_loss
+            if self.early_stop:
+                if self.best_score is None:
+                    self.best_score = score
+                    self._save_checkpoint(self, epoch, save_best=True)
+                elif score < self.best_score:
+                    self.counter += 1
+                    self.logger.debug('EarlyStopping counter:{} out of {}'.format(self.counter, self.patience))
+                    if self.counter >= self.patience:
+                        self.logger.debug('Training early stops')
+                        break
+                else:
+                    self.best_score = score
+                    self._save_checkpoint(self, epoch, save_best=True)
+                    self.counter = 0
+ 
+            elif epoch % save_epochs == 0:
+                self._save_checkpoint(self, epoch, save_best=True)
+
+
+
+    # def update_lr(self, new_lr):
+    #     torch_utils.change_lr(self.optimizer, new_lr)
+
+    def _save_checkpoint(self, epoch, save_best=False):
+        state = {
+            'epoch': epoch,
+            'state_dict': self.model.state_dict(),
+            'optimizer': self.optimizer.state_dict(),
+            'config': self.cfg
+        }
+        if save_best: 
+            filename = str(self.save_dir + '/model_best.pt')
+            torch.save(state, filename)
+            self.logger.debug('Saving current best: {}...'.format(filename))
+        else:
+            filename = str(self.save_dir + '/checkpoint_epoch_{}.pt'.format(epoch))
+            torch.save(state, filename)
+            self.logger.debug('Saving checkpoint: {} ...'.format(filename))
+        
+    def _resume_checkpoint(self, path):
+        self.logger.debug('Loading checkpoint: {}...'.format(path))
+        checkpoint = torch.load(path)
+        self.start_epoch = checkpoint['epoch'] + 1
+        self.model.load_state_dict(checkpoint['state_dict'])
+        if checkpoint['config']['optimizer'] != self.cfg['optimizer']:
+            self.logger.debug("Optimizer type given in config file is different from that of checkpoint."
+                              "Optimizer parameters not being resumed.")
+        else:
+            self.optimizer.load_state_dict(checkpoint['optimizer'])
+
+        self.logger.debug("Checkpoint loaded. Resume training from epoch {}".format(self.start_epoch))
