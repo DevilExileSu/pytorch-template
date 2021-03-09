@@ -2,7 +2,7 @@ class BaseDataLoader(object):
     """
     Nonuse torch.utils.data
     """
-    def __init__(self, filename, batch_size, shuffle, ):
+    def __init__(self, filename, batch_size, shuffle, logger):
         """
         Initialization data file path, batch data size, shuffle data
         Read data from data file

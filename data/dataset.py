@@ -1,7 +1,7 @@
 from torch.utils.data import Dataset
 
 class BaseDataset(Dataset):
-    def __init__(self, filename, ):
+    def __init__(self, filename, logger):
         """
         Initialization data file path and other data-related configurations 
         Read data from data file
@@ -18,6 +18,7 @@ class BaseDataset(Dataset):
         Return a set of data pairs (data[index], label[index])
         """
         raise NotImplementedError
+    
     @staticmethod 
     def collate_fn(batch_data):
         """

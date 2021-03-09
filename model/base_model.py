@@ -8,11 +8,11 @@ class BaseModel(nn.Module):
     Base class for all models
     """
     @abstractmethod
-    def forward(self, *inputs):
+    def forward(self, inputs):
         """
         Forward pass logic
 
-        :return: Model output
+        return: Model output
         """
         raise NotImplementedError
 

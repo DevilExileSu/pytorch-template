@@ -1,12 +1,15 @@
 import os
 import sys
 import logging
+from utils.util import ensure_dir
 
 class Logger(object):
     def __init__(self):
+        path  = 'logs/'
+        ensure_dir(path)
         handler = {
-            logging.DEBUG: "logs/debug.log",
-            logging.INFO: "logs/info.log"
+            logging.DEBUG: path + "debug.log",
+            logging.INFO: path + "info.log"
         }
         self.__loggers = {}
         logLevels = handler.keys()

@@ -4,9 +4,9 @@ from config import Logger
 from abc import abstractmethod
 
 class Trainer(object):
-    def __init__(self, model, optimizer, criterion, cfg):
-        self.logger = Logger()
-        self.model = self.model
+    def __init__(self, model, optimizer, criterion, cfg, logger):
+        self.logger = logger
+        self.model = model
         self.cfg = cfg
         self.optimizer = optimizer
         self.criterion = criterion
@@ -28,7 +28,7 @@ class Trainer(object):
         """
         Training logic for an epoch
 
-        :param epoch: Current epoch number
+        epoch: Current epoch number
         """
         raise NotImplementedError
     
@@ -55,9 +55,6 @@ class Trainer(object):
                 self._save_checkpoint(self, epoch, save_best=True)
 
 
-
-    # def update_lr(self, new_lr):
-    #     torch_utils.change_lr(self.optimizer, new_lr)
 
     def _save_checkpoint(self, epoch, save_best=False):
         state = {

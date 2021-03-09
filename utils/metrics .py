@@ -59,15 +59,3 @@ def mae(y_pred, y_true):
     assert len(y_pred) == len(y_true)
     return torch.mean(torch.abs(y_true - y_pred))
 
-
-if __name__=="__main__":
-    y_true = torch.tensor([1,1,2,3,4,1,2,3])
-    y_pred = torch.tensor([1,1,1,2,4,2,2,3])
-    pre = precision(y_pred, y_true)
-    acc = accuracy(y_pred, y_true)
-    rc = recall(y_pred, y_true)
-    f1 = f1Score(y_pred, y_true)
-    print(acc)
-    for i in f1:
-        print(pre[i], rc[i], f1[i])
-    print(classification_report(y_true, y_pred))
