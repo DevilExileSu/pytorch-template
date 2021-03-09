@@ -19,9 +19,6 @@ class Trainer(object):
         self.save_dir = cfg['save_dir']
         self.best_score = None
         self.counter = 0 
-        
-
-    
 
     @abstractmethod
     def _train_epoch(self, epoch):
