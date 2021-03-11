@@ -31,7 +31,7 @@ class Trainer(object):
     
     def train(self):
         for epoch in range(self.start_epoch, self.epochs+1):
-            val_loss, metrics_score= self._trian_epoch(epoch)
+            val_loss, metrics_score= self._train_epoch(epoch)
             score = -val_loss
             if self.early_stop:
                 if self.best_score is None:
