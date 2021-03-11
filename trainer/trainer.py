@@ -46,11 +46,11 @@ class Trainer(object):
                         break
                 else:
                     self.best_score = score
-                    self._save_checkpoint(self, epoch, save_best=True)
+                    self._save_checkpoint(epoch, save_best=True)
                     self.counter = 0
  
             elif epoch % save_epochs == 0:
-                self._save_checkpoint(self, epoch, save_best=True)
+                self._save_checkpoint(epoch, save_best=True)
 
 
 
