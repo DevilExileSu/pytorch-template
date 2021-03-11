@@ -2,6 +2,7 @@ import torch
 import numpy as np
 from config import Logger
 from abc import abstractmethod
+from utils.util import ensure_dir, check_dir
 
 class Trainer(object):
     def __init__(self, model, optimizer, criterion, cfg, logger):
@@ -36,7 +37,7 @@ class Trainer(object):
             if self.early_stop:
                 if self.best_score is None:
                     self.best_score = score
-                    self._save_checkpoint(self, epoch, save_best=True)
+                    self._save_checkpoint(epoch, save_best=True)
                 elif score < self.best_score:
                     self.counter += 1
                     self.logger.debug('EarlyStopping counter:{} out of {}'.format(self.counter, self.patience))
@@ -54,6 +55,7 @@ class Trainer(object):
 
 
     def _save_checkpoint(self, epoch, save_best=False):
+        ensure_dir(self.save_dir)
         state = {
             'epoch': epoch,
             'state_dict': self.model.state_dict(),
@@ -70,6 +72,7 @@ class Trainer(object):
             self.logger.debug('Saving checkpoint: {} ...'.format(filename))
         
     def _resume_checkpoint(self, path):
+        check_dir(path)
         self.logger.debug('Loading checkpoint: {}...'.format(path))
         checkpoint = torch.load(path)
         self.start_epoch = checkpoint['epoch'] + 1
