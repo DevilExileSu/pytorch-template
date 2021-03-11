@@ -55,4 +55,9 @@ def keep_partial_grad(grad, topk):
     assert topk < grad.size(0)
     grad.data[topk:].zero_()
     return grad
+
+# model.apply(initialize_weights)
+def initialize_weights(model):
+    if hasattr(model, 'weight') and model.weight.dim() > 1:
+        nn.init.xavier_uniform_(model.weight.data)
     
