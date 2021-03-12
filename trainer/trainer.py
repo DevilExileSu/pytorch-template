@@ -20,7 +20,8 @@ class Trainer(object):
         self.save_dir = cfg['save_dir']
         self.best_score = None
         self.counter = 0 
-
+        if cfg['resume']:
+            self._resume_checkpoint(cfg['resume_path'])
     @abstractmethod
     def _train_epoch(self, epoch):
         """
