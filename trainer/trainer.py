@@ -78,7 +78,7 @@ class Trainer(object):
         self.logger.debug('Loading checkpoint: {}...'.format(path))
         checkpoint = torch.load(path)
         self.start_epoch = checkpoint['epoch'] + 1
-        self.best_score = checkpoint['checkpoint']
+        self.best_score = checkpoint['best_score']
         self.model.load_state_dict(checkpoint['state_dict'])
         if checkpoint['config']['optimizer'] != self.cfg['optimizer']:
             self.logger.debug("Optimizer type given in config file is different from that of checkpoint."
