@@ -23,5 +23,8 @@ pytorch使用模板，简化并规范模块编写。
 └── utils                           # 通用的函数和类模块
     ├── metrics .py                 # 	评估函数
     └── util.py                     # 	工具函数
-
 ```
+
+### 例子
+
+[DevilExileSu/transformer](https://github.com/DevilExileSu/transformer) 
