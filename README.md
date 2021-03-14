@@ -18,6 +18,7 @@ pytorch使用模板，简化并规范模块编写。
 │   └── info.log                    # 	info日志文件： 模型训练损失，评估信息 logger.info("...")
 ├── model                           # 该模块存放网络模型结构
 │   └── base_model.py               # 	模型基类
+├── saved_models                    # 保存模型
 ├── trainer                         # 该模块存放模型训练器
 │   └── trainer.py                  # 	训练器基类
 └── utils                           # 通用的函数和类模块
