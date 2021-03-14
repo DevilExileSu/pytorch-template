@@ -58,4 +58,3 @@ def mse(y_pred, y_true):
 def mae(y_pred, y_true):
     assert len(y_pred) == len(y_true)
     return torch.mean(torch.abs(y_true - y_pred))
-
