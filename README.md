@@ -29,3 +29,5 @@ pytorch使用模板，简化并规范模块编写。
 ### 例子
 
 [DevilExileSu/transformer](https://github.com/DevilExileSu/transformer) 
+
+[DevilExileSu/AGGCN](https://github.com/DevilExileSu/AGGCN)
